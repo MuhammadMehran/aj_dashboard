@@ -28,8 +28,9 @@ with row0_2:
 ################
 
 
-def chart1(year, reporting_company):
+def chart1(band, year, reporting_company):
     df_filtered = df[df['Reference Year / Année de référence'] == year]
+    df_filtered = df_filtered[df_filtered['Band Number'] == band]
     df_filtered = df_filtered[df_filtered['Reporting Company Trade Name / Nom commercial de la société déclarante'] == reporting_company]
 
     total_df_filtered = df_filtered.groupby('Facility Name')[
@@ -43,8 +44,9 @@ def chart1(year, reporting_company):
     st.plotly_chart(fig)
 
 
-def chart2(year, naicas_code):
+def chart2(band, year, naicas_code):
     df_filtered = df[df['Reference Year / Année de référence'] == year]
+    df_filtered = df_filtered[df_filtered['Band Number'] == band]
     df_filtered = df_filtered[df_filtered["English Facility NAICS Code Description / Description du code SCIAN de l'installation en anglais"] == naicas_code]
 
     total_df_filtered = df_filtered.groupby('Facility Name')[
@@ -65,14 +67,16 @@ with row4_1:
 row5_spacer1, row5_1, row5_spacer2, row5_2, row5_spacer3 = st.columns(
     (.2, 2.3, .4, 4.4, .2))
 with row5_1:
+    band_chart1 = st.selectbox("Please Band Number", list(
+        df['Band Number'].unique()), key='band_chart1', index=363)
     year_chart1 = st.selectbox("Please Select year", list(
         df['Reference Year / Année de référence'].unique()), key='year_chart1')
     reporting_company = st.selectbox(
         "Please select reporting company", list(
-            df['Reporting Company Trade Name / Nom commercial de la société déclarante'].unique()), key='reporting_company')
+            df['Reporting Company Trade Name / Nom commercial de la société déclarante'].unique()), key='reporting_company', index=92)
 
 with row5_2:
-    chart1(year_chart1, reporting_company)
+    chart1(band_chart1, year_chart1, reporting_company)
 
 ### SEASON ###
 row6_spacer1, row6_1, row6_spacer2 = st.columns((.2, 7.1, .2))
@@ -81,13 +85,15 @@ with row6_1:
 row7_spacer1, row7_1, row7_spacer2, row7_2, row7_spacer3 = st.columns(
     (.2, 2.3, .4, 4.4, .2))
 with row7_1:
+    band_chart2 = st.selectbox("Please Band Number", list(
+        df['Band Number'].unique()), key='band_chart2', index=363)
     year_chart2 = st.selectbox("Please Select year", list(
         df['Reference Year / Année de référence'].unique()), key='year_chart2')
     naicas_code = st.selectbox(
         "Please select NAICS Code", list(
-            df["English Facility NAICS Code Description / Description du code SCIAN de l'installation en anglais"].unique()), key='naicas_code')
+            df["English Facility NAICS Code Description / Description du code SCIAN de l'installation en anglais"].unique()), key='naicas_code', index=26)
 with row7_2:
-    chart2(year_chart2, naicas_code)
+    chart2(band_chart2, year_chart2, naicas_code)
 # ### MATCHDAY ###
 # row8_spacer1, row8_1, row8_spacer2 = st.columns((.2, 7.1, .2))
 # with row8_1:
