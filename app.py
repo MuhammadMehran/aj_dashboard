@@ -60,6 +60,14 @@ def chart2(band, year, naicas_code):
     st.plotly_chart(fig)
 
 
+def chart3(band):
+    df2 = df[df['Band Number'] == band]
+    fig = px.bar(df2, x='Facility Name', y='Reference Year / Année de référence',
+                 color="English Facility NAICS Code Description / Description du code SCIAN de l'installation en anglais")
+
+    st.plotly_chart(fig)
+
+
 ### TEAM ###
 row4_spacer1, row4_1, row4_spacer2 = st.columns((.2, 7.1, .2))
 with row4_1:
@@ -67,9 +75,9 @@ with row4_1:
 row5_spacer1, row5_1, row5_spacer2, row5_2, row5_spacer3 = st.columns(
     (.2, 2.3, .4, 4.4, .2))
 with row5_1:
-    band_chart1 = st.selectbox("Please Band Number", list(
+    band_chart1 = st.selectbox("Please select Band Number", list(
         df['Band Number'].unique()), key='band_chart1', index=363)
-    year_chart1 = st.selectbox("Please Select year", list(
+    year_chart1 = st.selectbox("Please elect year", list(
         df['Reference Year / Année de référence'].unique()), key='year_chart1')
     reporting_company = st.selectbox(
         "Please select reporting company", list(
@@ -85,30 +93,24 @@ with row6_1:
 row7_spacer1, row7_1, row7_spacer2, row7_2, row7_spacer3 = st.columns(
     (.2, 2.3, .4, 4.4, .2))
 with row7_1:
-    band_chart2 = st.selectbox("Please Band Number", list(
+    band_chart2 = st.selectbox("Please select Band Number", list(
         df['Band Number'].unique()), key='band_chart2', index=363)
-    year_chart2 = st.selectbox("Please Select year", list(
+    year_chart2 = st.selectbox("Please select year", list(
         df['Reference Year / Année de référence'].unique()), key='year_chart2')
     naicas_code = st.selectbox(
         "Please select NAICS Code", list(
             df["English Facility NAICS Code Description / Description du code SCIAN de l'installation en anglais"].unique()), key='naicas_code', index=26)
 with row7_2:
     chart2(band_chart2, year_chart2, naicas_code)
+
 # ### MATCHDAY ###
-# row8_spacer1, row8_1, row8_spacer2 = st.columns((.2, 7.1, .2))
-# with row8_1:
-#     st.subheader('Chart 3: Total Emissions per Refrence Year')
-# row9_spacer1, row9_1, row9_spacer2, row9_2, row9_spacer3 = st.columns(
-#     (.2, 2.3, .4, 4.4, .2))
-# with row9_1:
-#     st.markdown('Investigate stats over the course of a season. At what point in the season do teams score the most goals? Do teams run less towards the end of the season?')
-#     plot_x_per_matchday_selected = st.selectbox("Which aspect do you want to analyze?", list(
-#         label_attr_dict.keys()), key='attribute_matchday')
-#     plot_x_per_matchday_type = st.selectbox(
-#         "Which measure do you want to analyze?", types, key='measure_matchday')
-# with row9_2:
-#     if all_teams_selected != 'Select teams manually (choose below)' or selected_teams:
-#         plot_x_per_matchday(plot_x_per_matchday_selected,
-#                             plot_x_per_matchday_type)
-#     else:
-#         st.warning('Please select at least one team')
+row8_spacer1, row8_1, row8_spacer2 = st.columns((.2, 7.1, .2))
+with row8_1:
+    st.subheader('Chart 3: Total Emissions per Refrence Year')
+row9_spacer1, row9_1, row9_spacer2, row9_2, row9_spacer3 = st.columns(
+    (.2, 2.3, .4, 4.4, .2))
+with row9_1:
+    band_chart3 = st.selectbox("Please select Band Number", list(
+        df['Band Number'].unique()), key='band_chart3')
+with row9_2:
+    chart3(band_chart3)
