@@ -40,7 +40,7 @@ def chart1(band, year, reporting_company):
     fig = px.bar(total_df_filtered, x="Facility Name", y="Total Emissions (tonnes CO2e) / Émissions totales (tonnes éq. CO2)",
                  color='Facility Name')
     fig.update_layout(template='simple_white',
-                      title='Total Emissions per Facility Name', height=700)  # barmode='stack'
+                      title='Total Emissions per Facility Name', height=600)  # barmode='stack'
     st.plotly_chart(fig)
 
 
@@ -56,7 +56,7 @@ def chart2(band, year, naicas_code):
     fig = px.bar(total_df_filtered, x="Facility Name", y="Total Emissions (tonnes CO2e) / Émissions totales (tonnes éq. CO2)",
                  color='Facility Name')
     fig.update_layout(template='simple_white',
-                      title='Total Emissions per English Facility NAICS Code', height=700)  # barmode='stack'
+                      title='Total Emissions per English Facility NAICS Code', height=600)  # barmode='stack'
     st.plotly_chart(fig)
 
 
@@ -64,6 +64,9 @@ def chart3(band):
     df2 = df[df['Band Number'] == band]
     fig = px.bar(df2, x='Facility Name', y='Reference Year / Année de référence',
                  color="English Facility NAICS Code Description / Description du code SCIAN de l'installation en anglais")
+
+    fig.update_layout(template='simple_white',
+                      title=' Total Emissions per Refrence Year', height=600)  # barmode='stack'
 
     st.plotly_chart(fig)
 
