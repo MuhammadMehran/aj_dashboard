@@ -27,7 +27,7 @@ with row0_2:
 ### ANALYSIS ###
 ################
 
-
+@st.cache(ttl=24*60*60)
 def chart1(band, year, reporting_company):
     df_filtered = df[df['Reference Year / Année de référence'] == year]
     df_filtered = df_filtered[df_filtered['Band Number'] == band]
@@ -44,6 +44,7 @@ def chart1(band, year, reporting_company):
     st.plotly_chart(fig)
 
 
+@st.cache(ttl=24*60*60)
 def chart2(band, year, naicas_code):
     df_filtered = df[df['Reference Year / Année de référence'] == year]
     df_filtered = df_filtered[df_filtered['Band Number'] == band]
@@ -60,6 +61,7 @@ def chart2(band, year, naicas_code):
     st.plotly_chart(fig)
 
 
+@st.cache(ttl=24*60*60)
 def chart3(band):
     df2 = df[df['Band Number'] == band]
     fig = px.bar(df2, x='Facility Name', y='Reference Year / Année de référence',
