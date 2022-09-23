@@ -5,22 +5,19 @@ import plotly.express as px
 
 st.set_page_config(layout="wide")
 
-df = pd.read_excel('100km Radius - AFN Dataset for Github.xlsx')
+
+@st.cache
+def get_data():
+    df = pd.read_excel('100km Radius - AFN Dataset for Github.xlsx')
+    return df
 
 
-####################
-### INTRODUCTION ###
-####################
-
+df = get_data()
 
 row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns(
     (.1, 2.3, .1, 1.3, .1))
 with row0_1:
     st.title('Analyzer')
-with row0_2:
-    st.text("")
-    st.subheader(
-        'App by [Mehran](https://www.fiverr.com/mehran0101/)')
 
 
 ################
@@ -74,16 +71,15 @@ def chart3_data(band):
 
 
 def chart3(df2):
-    fig = px.bar(df2, x='Facility Name', y='Reference Year / Année de référence',
+    fig = px.bar(df2, y='Total Emissions (tonnes CO2e) / Émissions totales (tonnes éq. CO2)', x='Reference Year / Année de référence',
                  color="English Facility NAICS Code Description / Description du code SCIAN de l'installation en anglais")
 
     fig.update_layout(template='simple_white',
-                      title=' Total Emissions per Refrence Year', height=600)  # barmode='stack'
+                      title=' Total Emissions per Refrence Year', height=600)
 
     st.plotly_chart(fig)
 
 
-### TEAM ###
 row4_spacer1, row4_1, row4_spacer2 = st.columns((.2, 7.1, .2))
 with row4_1:
     st.subheader('Chart 1: Total Emissions per Facility Name')
@@ -101,7 +97,7 @@ with row5_1:
 with row5_2:
     df_filtered = chart1_data(band_chart1, year_chart1, reporting_company)
     chart1(df_filtered)
-### SEASON ###
+
 row6_spacer1, row6_1, row6_spacer2 = st.columns((.2, 7.1, .2))
 with row6_1:
     st.subheader('Chart 2: Total Emissions per English Facility NAICS Code')
@@ -118,7 +114,7 @@ with row7_1:
 with row7_2:
     df_filtered = chart2_data(band_chart2, year_chart2, naicas_code)
     chart2(df_filtered)
-# ### MATCHDAY ###
+
 row8_spacer1, row8_1, row8_spacer2 = st.columns((.2, 7.1, .2))
 with row8_1:
     st.subheader('Chart 3: Total Emissions per Refrence Year')
