@@ -39,7 +39,7 @@ def chart1(df_filtered):
                  color='Facility Name')
     fig.update_layout(template='simple_white', xaxis_title='Reporting Company',
                       yaxis_title='Total Emissions (tonnes CO2e)', title='Total Emissions per Facility Name', height=600)  # barmode='stack'
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
 
 @st.cache(ttl=24*60*60)
@@ -57,7 +57,7 @@ def chart2(df_filtered):
                  color='Facility Name')
     fig.update_layout(template='simple_white', xaxis_title='English Facility NAICS Code Description',
                       yaxis_title='Total Emissions (tonnes CO2e)', title='Total Emissions per English Facility NAICS Code', height=600)  # barmode='stack'
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
 
 @st.cache(ttl=24*60*60)
@@ -76,7 +76,7 @@ def chart3(df2):
                       title=' Total Emissions per Refrence Year', height=600,
                       legend=dict(orientation="h", yanchor="top", y=-1.02, xanchor="right", x=1, title='NAICS Code'))
 
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
 
 row4_spacer1, row4_1, row4_spacer2 = st.columns((.2, 7.1, .2))
