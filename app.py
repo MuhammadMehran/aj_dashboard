@@ -37,7 +37,7 @@ def chart1(df_filtered):
 
     fig = px.bar(total_df_filtered, x="Reporting Company Trade Name / Nom commercial de la société déclarante", y="Total Emissions (tonnes CO2e) / Émissions totales (tonnes éq. CO2)",
                  color='Facility Name')
-    fig.update_layout(template='simple_white', xaxis_title='Reporting Company',
+    fig.update_layout(template='simple_white', xaxis_title='Reporting Company', xaxis={'categoryorder': 'total ascending'},
                       yaxis_title='Total Emissions (tonnes CO2e)', title='Total Emissions per Facility Name', height=600)  # barmode='stack'
     st.plotly_chart(fig, use_container_width=True)
 
@@ -55,7 +55,7 @@ def chart2(df_filtered):
 
     fig = px.bar(total_df_filtered, x="English Facility NAICS Code Description / Description du code SCIAN de l'installation en anglais", y="Total Emissions (tonnes CO2e) / Émissions totales (tonnes éq. CO2)",
                  color='Facility Name')
-    fig.update_layout(template='simple_white', xaxis_title='English Facility NAICS Code Description',
+    fig.update_layout(template='simple_white', xaxis_title='English Facility NAICS Code Description', xaxis={'categoryorder': 'total ascending'},
                       yaxis_title='Total Emissions (tonnes CO2e)', title='Total Emissions per English Facility NAICS Code', height=600)  # barmode='stack'
     st.plotly_chart(fig, use_container_width=True)
 
@@ -63,6 +63,9 @@ def chart2(df_filtered):
 @st.cache(ttl=24*60*60)
 def chart3_data(band):
     df2 = df[df['Band Name'] == band]
+    color = "English Facility NAICS Code Description / Description du code SCIAN de l'installation en anglais"
+    top_cats = df2[color].value_counts().head(10).index.tolist()
+    df2.loc[~df2[color].isin(top_cats), color] = 'Others'
     return df2
 
 
