@@ -38,6 +38,8 @@ def chart1(df_filtered):
     fig = px.bar(total_df_filtered, x="Reporting Company Trade Name / Nom commercial de la société déclarante", y="Total Emissions (tonnes CO2e) / Émissions totales (tonnes éq. CO2)",
                  color='Facility Name')
     fig.update_layout(template='simple_white', xaxis_title='Reporting Company', xaxis={'categoryorder': 'total ascending'},
+                      legend=dict(orientation="h", yanchor="top",
+                                  y=-1.02, xanchor="right", x=1),
                       yaxis_title='Total Emissions (tonnes CO2e)', title='Total Emissions per Facility Name', height=600)  # barmode='stack'
     st.plotly_chart(fig, use_container_width=True)
 
@@ -55,7 +57,9 @@ def chart2(df_filtered):
 
     fig = px.bar(total_df_filtered, x="English Facility NAICS Code Description / Description du code SCIAN de l'installation en anglais", y="Total Emissions (tonnes CO2e) / Émissions totales (tonnes éq. CO2)",
                  color='Facility Name')
-    fig.update_layout(template='simple_white', xaxis_title='English Facility NAICS Code Description', xaxis={'categoryorder': 'total ascending'},
+    fig.update_layout(template='simple_white', xaxis_title='', xaxis={'categoryorder': 'total ascending'},
+                      legend=dict(orientation="h", yanchor="top",
+                                  y=-1.02, xanchor="right", x=1),
                       yaxis_title='Total Emissions (tonnes CO2e)', title='Total Emissions per English Facility NAICS Code', height=600)  # barmode='stack'
     st.plotly_chart(fig, use_container_width=True)
 
